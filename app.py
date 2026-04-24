@@ -1,26 +1,25 @@
 import requests
-import tkinter as tk
 from tkinter import messagebox
-from tkinter import ttk
-import tksvg
+import customtkinter
+
+
+
 
 
 """ testing ip: 165.155.162.14 """
 
-root = tk.Tk()
-root.title("I SPY WITH MY LITTLE EYE AN IP")
-root.geometry("700x600")
-style = ttk.Style()
-style.theme_use("clam")
+app = customtkinter.CTk()
+app.title("I SPY WITH MY LITTLE EYE AN IP")
+app.geometry("700x600")
 accesskey = "88f4a26ebfa2c094b719135c5535b0b4"
 
-instruct = ttk.Label(root, text="IP you want to search:", font=("Arial", 15))
+instruct = customtkinter.Label(app, text="IP you want to search:", font=("Arial", 15))
 instruct.place(x=0,y=0)
 
-ipinput = ttk.Entry(root, font=("Arial", 16), width=14)
+ipinput = customtkinter.Entry(app, font=("Arial", 16), width=14)
 ipinput.place(x=205,y=0)
 
-copyright = ttk.Label(root, text="YILYANE LOUNAS ©", font=("Arial",11))
+copyright = customtkinter.Label(app, text="YILYANE LOUNAS ©", font=("Arial",11))
 copyright.place(x=550,y=0)
 
 def getIP():
@@ -29,7 +28,7 @@ def getIP():
 
     response = requests.get(f"http://api.ipstack.com/{ip}?access_key={accesskey}")
     if response.status_code != 200:
-        messagebox.showerror("Error", "Error check your connection")
+        messagebox.showerror("error", "check your connection")
 
     ipdata = response.json()
     
@@ -41,21 +40,39 @@ def getIP():
     latitude = ipdata["latitude"]
     longitude = ipdata["longitude"]
     routingtype = ipdata["ip_routing_type"]
-    countrypicture = ipdata["location"]["country_flag"]
     current_time = ipdata["time_zone"]["current_time"]
     currency = ipdata["currency"]["code"]
     isp = ipdata["connection"]["isp"]
-    flag = ipdata["location"]["country_flag"]
 
-    img = tk.Label(root, image=flag)
-    img.place(x=400,y=400)
+    typ = customtkinter.Label(app, text=("type:", type), font=("Arial", 16))
+    typ.place(x=0,y=100)
 
-    typ = ttk.Label(root, text=("type:", type), font=("Arial", 16))
-    typ.place(x=200,y=200)
+    ctry = customtkinter.Label(app,text=("country:", country), font=("Arial",16))
+    ctry.place(x=0,y=150)
+
+    cty = customtkinter.Label(app,text=("city:", city), font=("Arial",16))
+    cty.place(x=0,y=200)
+
+    zip = customtkinter.Label(app,text=("zip:", zip), font=("Arial",16))
+    zip.place(x=0,y=250)
+
+    latlong = customtkinter.Label(app,text=("Long. & Lang:", longitude, latitude), font=("Arial",16))
+    latlong.place(x=0,y=300)
+
+    routype = customtkinter.Label(app,text=("routing type:", routingtype), font=("Arial",16))
+    routype.place(x=0,y=350)
+
+    currentime = customtkinter.Label(app,text=("current date & time there:", current_time), font=("Arial",16))
+    currentime.place(x=0,y=400)
+
+    currencies= customtkinter.Label(app,text=("currency:", currency), font=("Arial",16))
+    currencies.place(x=0,y=450)
+
+    ispee = customtkinter.Label(app,text=("isp", isp), font=("Arial",16))
+    ispee.place(x=0,y=500)
 
 
-
-enterbutton = ttk.Button(root, text="Enter", command=getIP)
+enterbutton = customtkinter.CtkButton(app, text="Enter", command=getIP)
 enterbutton.place(x=380,y=0)
 
-root.mainloop()
+app.mainloop()

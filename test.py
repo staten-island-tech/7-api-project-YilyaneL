@@ -1,22 +1,16 @@
-import tkinter as tk
-import tksvg
-import requests
+import customtkinter
 
-def get_svg_from_url(url, scale=1.0):
-    # Fetch the SVG content from the URL
-    response = requests.get(url)
-    response.raise_for_status()  # Ensure the download was successful
+customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
+customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
-    # Use the 'data' parameter to load the SVG string directly
-    return tksvg.SvgImage(data=response.text, scale=scale)
+app = customtkinter.CTk()  # create CTk window like you do with the Tk window
+app.geometry("400x240")
 
-root = tk.Tk()
+def button_function():
+    print("button pressed")
 
-# Example: Loading a public SVG icon
-url = "https://assets.ipstack.com/flags/us.svg"
-svg_img = get_svg_from_url(url, scale=0.01)
+# Use CTkButton instead of tkinter Button
+button = customtkinter.CTkButton(master=app, text="CTkButton", command=button_function)
+button.place(relx=0.5, rely=0.5, anchor=customtkinter.CENTER)
 
-label = tk.Label(root, image=svg_img)
-label.pack(padx=20, pady=20)
-
-root.mainloop()
+app.mainloop()
