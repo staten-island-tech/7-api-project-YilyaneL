@@ -13,6 +13,8 @@ app.title("I SPY WITH MY LITTLE EYE AN IP")
 app.geometry("700x600")
 accesskey = "88f4a26ebfa2c094b719135c5535b0b4"
 
+customtkinter.set_appearance_mode("system")
+
 instruct = customtkinter.CTkLabel(app, text="IP you want to search:", font=("Arial", 15))
 instruct.place(x=5,y=0)
 
@@ -74,5 +76,7 @@ def getIP():
 
 enterbutton = customtkinter.CTkButton(app, text="Enter", command=getIP)
 enterbutton.place(x=320,y=0)
+appearance = customtkinter.CTkButton(app,text="Appearance", command=ldmode)
+appearance.place(x=550,y=300)
 
 app.mainloop()
